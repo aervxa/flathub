@@ -1,4 +1,5 @@
 *
+!shared-modules
 !.gitignore
 !.gitmodules
 !*.yml
