@@ -1,6 +1,6 @@
 id: app.lepse.Lepse
 runtime: org.gnome.Platform
-runtime-version: "50"
+runtime-version: "51"
 sdk: org.gnome.Sdk
 command: lepse
 finish-args:
@@ -14,7 +14,8 @@ sdk-extensions:
   - org.freedesktop.Sdk.Extension.node24
   - org.freedesktop.Sdk.Extension.rust-stable
 build-options:
-  append-path: "/usr/lib/sdk/node24/bin:/usr/lib/sdk/rust-stable/bin"
+  append-path: >-
+    /usr/lib/sdk/node24/bin:/usr/lib/sdk/rust-stable/bin:/run/build/lepse/pnpm-bin
 modules:
   - shared-modules/libappindicator/libappindicator-gtk3-12.10.json
   - name: lepse
@@ -26,28 +27,36 @@ modules:
         CARGO_NET_OFFLINE: "true"
         XDG_CACHE_HOME: /run/build/lepse/flatpak-node/cache
         XDG_DATA_HOME: /run/build/lepse/flatpak-node/data
+        PNPM_CONFIG_TRUST_LOCKFILE: "true"
     sources:
       - type: git
         url: "https://github.com/aervxa/lepse.git"
-        tag: v0.2.4
-        commit: eb50e655ce1c844ac9cfbfe72f9c88d4e0f5dd1f
+        tag: v0.2.5
+        commit: bdc368f02a0f5ebe8348d4ee80a4c9053f7116dd
       - cargo-sources.json
       - node-sources.json
       - type: archive
-        url: "https://registry.npmjs.org/pnpm/-/pnpm-10.25.0.tgz"
+        only-arches:
+          - x86_64
+        url: >-
+          https://registry.npmjs.org/@pnpm/exe.linux-x64/-/exe.linux-x64-12.6.0.tgz
         sha512: >-
-          5e82639027af37cf832061bcc6d639c219634488e0f2baebe785028a793de7b525ffcd3f7ff574f5e9860654e098fe852ba8ac5dd5cefe1767d23a020a92f501
-        dest: pnpm
+          a855819de1c9009ef75b8c21b5b68538bd4cffb0c10ba20b1d7bb173b64fb4485f3ee4f5cde6621ab98a1e83007c903e99c9bac61385963a954d44bed3425a6f
+        dest: pnpm-bin
+      - type: archive
+        only-arches:
+          - aarch64
+        url: >-
+          https://registry.npmjs.org/@pnpm/exe.linux-arm64/-/exe.linux-arm64-12.6.0.tgz
+        sha512: >-
+          f21dac3682211c3a470d8a9964287d3d7afa92ba96d746ed6f4187546bb0ef5d26b831e51401ccb541b6a2099a1e07bacc91b5c6063863b9b05f983f2d6beb62
+        dest: pnpm-bin
     build-commands:
+      - cargo --offline fetch --manifest-path apps/lachesis/src-tauri/Cargo.toml
+      - pnpm install --offline --frozen-lockfile --filter @lepse/lachesis...
       - >-
-        cargo --offline fetch --manifest-path apps/lachesis/src-tauri/Cargo.toml
-        --verbose
-      - >-
-        node ./pnpm/bin/pnpm.cjs install --offline --frozen-lockfile --filter
-        @lepse/lachesis...
-      - >-
-        node ./pnpm/bin/pnpm.cjs --filter @lepse/lachesis tbuild -b deb -c
-        '{"bundle": { "createUpdaterArtifacts": false }}'
+        pnpm --filter @lepse/lachesis tbuild -b deb
+        -c '{"bundle":{"createUpdaterArtifacts":false}}'
       - >-
         install -Dm755
         apps/lachesis/src-tauri/target/release/bundle/deb/*/data/usr/bin/lepse
