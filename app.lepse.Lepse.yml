@@ -11,6 +11,8 @@ finish-args:
   - "--share=network"
   - "--share=ipc"
   - "--talk-name=org.kde.StatusNotifierWatcher"
+  # a version after wekit2gtk v2.52 seems to cause a regression that glitches css animations, disabling skia for compositing fixes it.
+  - "--env=WEBKIT_USE_SKIA_FOR_COMPOSITION=0"
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.node24
   - org.freedesktop.Sdk.Extension.rust-stable
