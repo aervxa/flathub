@@ -70,7 +70,7 @@ modules:
       - >-
         desktop-file-edit
         --set-icon=app.lepse.Lepse
-        --set-key="Categories" --set-value="Utility;Office;HealthFitness;Clock;Calendar;Mindfulness;"
+        --set-key="Categories" --set-value="Utility;Clock;"
         --set-key="Keywords" --set-value="aesthetic;productivity;clock;calendar;pomodoro;timer;focus;habits;"
         /app/share/applications/app.lepse.Lepse.desktop
       - >-
