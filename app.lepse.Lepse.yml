@@ -68,17 +68,23 @@ modules:
         apps/lachesis/src-tauri/target/release/bundle/deb/*/data/usr/share/applications/lepse.desktop
         /app/share/applications/app.lepse.Lepse.desktop
       - >-
+        desktop-file-edit
+        --set-icon=app.lepse.Lepse
+        --set-key="Categories" --set-value="Utility;Office;HealthFitness;Clock;Calendar;Mindfulness;"
+        --set-key="Keywords" --set-value="aesthetic;productivity;clock;calendar;pomodoro;timer;focus;habits;"
+        /app/share/applications/app.lepse.Lepse.desktop
+      - >-
         install -Dm644
         apps/lachesis/src-tauri/target/release/bundle/deb/*/data/usr/share/icons/hicolor/128x128/apps/lepse.png
-        /app/share/icons/hicolor/128x128/apps/lepse.png
+        /app/share/icons/hicolor/128x128/apps/app.lepse.Lepse.png
       - >-
         install -Dm644
         apps/lachesis/src-tauri/target/release/bundle/deb/*/data/usr/share/icons/hicolor/32x32/apps/lepse.png
-        /app/share/icons/hicolor/32x32/apps/lepse.png
+        /app/share/icons/hicolor/32x32/apps/app.lepse.Lepse.png
       - >-
         install -Dm644
         apps/lachesis/src-tauri/target/release/bundle/deb/*/data/usr/share/icons/hicolor/256x256@2/apps/lepse.png
-        /app/share/icons/hicolor/512x512/apps/lepse.png
+        /app/share/icons/hicolor/512x512/apps/app.lepse.Lepse.png
       - >-
         install -Dm644
         apps/lachesis/src-tauri/target/release/bundle/deb/*/data/usr/share/metainfo/app.lepse.Lepse.metainfo.xml
