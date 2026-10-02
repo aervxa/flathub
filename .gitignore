@@ -1,7 +1,8 @@
 *
+tmp
 !shared-modules
 !.gitignore
 !.gitmodules
 !*.yml
 !*.json
-tmp
+!update.sh
