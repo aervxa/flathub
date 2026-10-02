@@ -2,7 +2,7 @@ id: app.lepse.Lepse
 runtime: org.gnome.Platform
 runtime-version: "51"
 sdk: org.gnome.Sdk
-command: lepse
+command: app.lepse.Lepse
 finish-args:
   - "--socket=wayland"
   - "--socket=fallback-x11"
@@ -62,7 +62,7 @@ modules:
       - >-
         install -Dm755
         apps/lachesis/src-tauri/target/release/bundle/deb/*/data/usr/bin/lepse
-        /app/bin/lepse
+        /app/bin/app.lepse.Lepse
       - >-
         install -Dm644
         apps/lachesis/src-tauri/target/release/bundle/deb/*/data/usr/share/applications/lepse.desktop
@@ -70,6 +70,7 @@ modules:
       - >-
         desktop-file-edit
         --set-icon=app.lepse.Lepse
+        --set-key="Exec" --set-value="app.lepse.Lepse"
         --set-key="Categories" --set-value="Utility;Clock;"
         --set-key="Keywords" --set-value="aesthetic;productivity;clock;calendar;pomodoro;timer;focus;habits;"
         /app/share/applications/app.lepse.Lepse.desktop
